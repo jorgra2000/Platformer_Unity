@@ -9,20 +9,44 @@ public class Hero : MonoBehaviour
 
     private Rigidbody2D rb;
     private float inputH;
+    private Animator anim;
     
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        inputH = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(inputH * speed, rb.velocity.y);
+        Movement();
 
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    void Movement() 
+    {
+        inputH = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(inputH * speed, rb.velocity.y);
+
+        if (inputH != 0)
+        {
+            anim.SetBool("running", true);
+            if(inputH > 0) 
+            {
+                transform.eulerAngles = Vector3.zero;
+            }
+            else 
+            {
+                transform.eulerAngles = new Vector3(0, 180f, 0);
+            }
+        }
+        else
+        {
+            anim.SetBool("running", false);
         }
     }
 }
