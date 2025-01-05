@@ -21,9 +21,15 @@ public class Hero : MonoBehaviour
     {
         Movement();
 
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.Z)) 
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            anim.SetTrigger("attack");
         }
     }
 
