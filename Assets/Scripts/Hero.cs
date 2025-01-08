@@ -20,17 +20,8 @@ public class Hero : MonoBehaviour
     void Update()
     {
         Movement();
-
-        if (Input.GetKeyDown(KeyCode.Z)) 
-        {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            anim.SetTrigger("jump");
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            anim.SetTrigger("attack");
-        }
+        Jump();
+        Attack();
     }
 
     void Movement() 
@@ -53,6 +44,24 @@ public class Hero : MonoBehaviour
         else
         {
             anim.SetBool("running", false);
+        }
+    }
+
+    void Jump() 
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
+        }
+    }
+
+    void Attack() 
+    {
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            anim.SetTrigger("attack");
         }
     }
 }
