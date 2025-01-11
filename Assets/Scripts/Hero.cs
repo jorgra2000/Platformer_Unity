@@ -5,6 +5,11 @@ public class Hero : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
 
+    [Header("Combat")]
+    [SerializeField] private Transform AttackPoint;
+    [SerializeField] private float radiusAttack;
+    [SerializeField] private LayerMask damageLayer;
+
     private Rigidbody2D rb;
     private float inputH;
     private Animator anim;
@@ -61,5 +66,20 @@ public class Hero : MonoBehaviour
         {
             anim.SetTrigger("attack");
         }
+    }
+
+    void Damage() 
+    {
+        Collider2D[] collidersDamaged = Physics2D.OverlapCircleAll(AttackPoint.position, radiusAttack, damageLayer);
+        foreach (Collider2D item in collidersDamaged) 
+        {
+            LifeSystem lifeSystem = item.gameObject.GetComponent<LifeSystem>();
+            lifeSystem.GetDamaged(1);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(AttackPoint.position, radiusAttack);
     }
 }
