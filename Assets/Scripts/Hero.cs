@@ -1,9 +1,14 @@
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private GameObject borderBoss;
+    [SerializeField] private Image[] hearts;
 
     [Header("Combat")]
     [SerializeField] private Transform AttackPoint;
@@ -75,6 +80,43 @@ public class Hero : MonoBehaviour
         {
             LifeSystem lifeSystem = item.gameObject.GetComponent<LifeSystem>();
             lifeSystem.GetDamaged(1);
+        }
+    }
+
+    public void GetDamaged() 
+    {
+        anim.SetTrigger("hurt");
+        UpdateLifesGUI();
+    }
+
+    private void UpdateLifesGUI() 
+    {
+        float lifes = GetComponent<LifeSystem>().Lifes;
+
+        for (int i = hearts.Length - 1; i + 1 > lifes; i--) 
+        {
+            hearts[i].gameObject.SetActive(false);
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BorderStart") || collision.CompareTag("BorderEnd")) 
+        {
+            virtualCamera.Follow = null;
+            if (collision.CompareTag("BorderEnd")) 
+            {
+                borderBoss.SetActive(true);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BorderStart"))
+        {
+            virtualCamera.Follow = this.gameObject.transform;
         }
     }
 

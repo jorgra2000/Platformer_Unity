@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Enemy : MonoBehaviour
 {
@@ -15,5 +16,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
+            lifeSystem.GetDamaged(1);
+        }
     }
 }

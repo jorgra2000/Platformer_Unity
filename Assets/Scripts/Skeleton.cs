@@ -8,6 +8,7 @@ public class Skeleton : Enemy
     void Start()
     {
         StartCoroutine(StartMoving());
+        StartCoroutine(CountdownDeath());
     }
 
     void Update()
@@ -28,5 +29,11 @@ public class Skeleton : Enemy
     {
         yield return new WaitForSeconds(0.8f);
         canMove = true;
+    }
+
+    IEnumerator CountdownDeath() 
+    {
+        yield return new WaitForSeconds(4f);
+        Destroy(this.gameObject);
     }
 }
