@@ -4,20 +4,28 @@ using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private Transform feet;
+    [SerializeField] private LayerMask floor;
+
+    [Header("Other")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private GameObject borderBoss;
     [SerializeField] private Image[] hearts;
+    [SerializeField] private GameObject gameOverMenu;
 
     [Header("Combat")]
     [SerializeField] private Transform AttackPoint;
     [SerializeField] private float radiusAttack;
     [SerializeField] private LayerMask damageLayer;
 
+    private bool isAlive = true;
     private Rigidbody2D rb;
     private float inputH;
     private Animator anim;
+    private Color32 hitColor = new Color32(255, 117, 117, 255);
 
     void Start()
     {
@@ -27,9 +35,12 @@ public class Hero : MonoBehaviour
 
     void Update()
     {
-        Movement();
-        Jump();
-        Attack();
+        if (isAlive) 
+        {
+            Movement();
+            Jump();
+            Attack();
+        }
     }
 
     void Movement() 
@@ -57,11 +68,18 @@ public class Hero : MonoBehaviour
 
     void Jump() 
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && OntTheFloor())
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             anim.SetTrigger("jump");
         }
+    }
+
+    bool OntTheFloor()
+    {
+        return Physics2D.Raycast(feet.position, Vector3.down, 0.15f, floor) || 
+            Physics2D.Raycast(feet.position + new Vector3(0.1f, 0f, 0f), Vector3.down, 0.15f, floor) ||
+            Physics2D.Raycast(feet.position - new Vector3(0.1f, 0f, 0f), Vector3.down, 0.15f, floor);
     }
 
     void Attack() 
@@ -85,18 +103,39 @@ public class Hero : MonoBehaviour
 
     public void GetDamaged() 
     {
-        anim.SetTrigger("hurt");
-        UpdateLifesGUI();
+        if (isAlive) 
+        {
+            anim.SetTrigger("hurt");
+            rb.sharedMaterial = null;
+            GetComponent<SpriteRenderer>().color = hitColor;
+            Invoke(nameof(RestoreColor), 0.35f);
+            UpdateLifes();
+        }
     }
 
-    private void UpdateLifesGUI() 
+    private void UpdateLifes() 
     {
         float lifes = GetComponent<LifeSystem>().Lifes;
 
-        for (int i = hearts.Length - 1; i + 1 > lifes; i--) 
+        if(lifes <= 0) 
         {
-            hearts[i].gameObject.SetActive(false);
+            isAlive = false;
+            anim.SetBool("death", true);
+            hearts[0].gameObject.SetActive(false);
+            gameOverMenu.SetActive(true);
         }
+        else 
+        {
+            for (int i = hearts.Length - 1; i + 1 > lifes; i--)
+            {
+                hearts[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void RestoreColor()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
 
@@ -123,5 +162,6 @@ public class Hero : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(AttackPoint.position, radiusAttack);
+        Gizmos.DrawLine(feet.position, feet.position - new Vector3(0, 0.15f, 0f));
     }
 }

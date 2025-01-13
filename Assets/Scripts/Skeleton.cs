@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Skeleton : Enemy
 {
+    [SerializeField] private float timeDeath;
+
     private bool canMove = false;
 
     void Start()
@@ -18,11 +20,10 @@ public class Skeleton : Enemy
 
     void Movement() 
     {
-        if (canMove) 
+        if (canMove && !IsDeath)
         {
             transform.Translate(Vector3.left * Speed * Time.deltaTime);
         }
-
     }
 
     IEnumerator StartMoving() 
@@ -33,7 +34,8 @@ public class Skeleton : Enemy
 
     IEnumerator CountdownDeath() 
     {
-        yield return new WaitForSeconds(4f);
-        Destroy(this.gameObject);
+        yield return new WaitForSeconds(timeDeath);
+        StartCoroutine(Death());
     }
+
 }

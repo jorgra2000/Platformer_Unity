@@ -13,7 +13,7 @@ public class LifeSystem : MonoBehaviour
         {
             if (this.gameObject.CompareTag("Enemy"))
             {
-                Destroy(this.gameObject);
+                GetComponent<Enemy>().StartDeath();
             }
             else 
             {

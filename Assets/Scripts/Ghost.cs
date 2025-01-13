@@ -23,7 +23,7 @@ public class Ghost : Enemy
 
     IEnumerator Patrol() 
     {
-        while (true) 
+        while (!IsDeath)
         {
             while (transform.position != targetPosition)
             {
