@@ -18,7 +18,6 @@ public class LifeSystem : MonoBehaviour
             else 
             {
                 GetComponent<Hero>().GetDamaged();
-                Debug.Log("Muerto");
             }
             
         }
@@ -26,7 +25,7 @@ public class LifeSystem : MonoBehaviour
         {
             if (this.gameObject.CompareTag("Enemy"))
             {
-                //Animación daño
+                GetComponent<Enemy>().GetDamaged();
             }
             else
             {

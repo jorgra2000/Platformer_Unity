@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Ghost : Enemy
@@ -8,6 +7,8 @@ public class Ghost : Enemy
 
     private Vector3 targetPosition;
     private int positionIndex = 0;
+
+    public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
 
     void Start()
     {
@@ -25,14 +26,13 @@ public class Ghost : Enemy
     {
         while (!IsDeath)
         {
-            while (transform.position != targetPosition)
+            while (transform.position != targetPosition && !IsDeath)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Speed * Time.deltaTime);
                 yield return null;
             }
             NewDestination();
         }
-
     }
 
     void NewDestination() 

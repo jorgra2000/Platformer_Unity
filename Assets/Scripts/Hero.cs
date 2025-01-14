@@ -1,5 +1,7 @@
 using Cinemachine;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
@@ -40,6 +42,10 @@ public class Hero : MonoBehaviour
             Movement();
             Jump();
             Attack();
+        }
+        else 
+        {
+            RestartOrExitLevel();
         }
     }
 
@@ -121,7 +127,11 @@ public class Hero : MonoBehaviour
         {
             isAlive = false;
             anim.SetBool("death", true);
-            hearts[0].gameObject.SetActive(false);
+            foreach(Image heart in hearts) 
+            {
+                heart.gameObject.SetActive(false);
+            }
+            
             gameOverMenu.SetActive(true);
         }
         else 
@@ -136,6 +146,19 @@ public class Hero : MonoBehaviour
     private void RestoreColor()
     {
         GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    void RestartOrExitLevel() 
+    {
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
 
