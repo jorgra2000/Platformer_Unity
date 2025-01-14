@@ -9,6 +9,7 @@ public class Ghost : Enemy
     private int positionIndex = 0;
 
     public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
+    public Transform[] Waypoints { get => waypoints; set => waypoints = value; }
 
     void Start()
     {
@@ -16,14 +17,9 @@ public class Ghost : Enemy
         StartCoroutine(Patrol());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     IEnumerator Patrol() 
     {
+        yield return new WaitForSeconds(1f);
         while (!IsDeath)
         {
             while (transform.position != targetPosition && !IsDeath)

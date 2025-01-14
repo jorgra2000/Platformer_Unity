@@ -1,7 +1,5 @@
 using Cinemachine;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
@@ -14,9 +12,8 @@ public class Hero : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
-    [SerializeField] private GameObject borderBoss;
     [SerializeField] private Image[] hearts;
-    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameManager gameManager;
 
     [Header("Combat")]
     [SerializeField] private Transform AttackPoint;
@@ -28,6 +25,8 @@ public class Hero : MonoBehaviour
     private float inputH;
     private Animator anim;
     private Color32 hitColor = new Color32(255, 117, 117, 255);
+
+    public bool IsAlive { get => isAlive; set => isAlive = value; }
 
     void Start()
     {
@@ -42,10 +41,6 @@ public class Hero : MonoBehaviour
             Movement();
             Jump();
             Attack();
-        }
-        else 
-        {
-            RestartOrExitLevel();
         }
     }
 
@@ -131,8 +126,6 @@ public class Hero : MonoBehaviour
             {
                 heart.gameObject.SetActive(false);
             }
-            
-            gameOverMenu.SetActive(true);
         }
         else 
         {
@@ -148,20 +141,6 @@ public class Hero : MonoBehaviour
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
-    void RestartOrExitLevel() 
-    {
-        if (Input.GetKeyDown(KeyCode.R)) 
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
-    }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BorderStart") || collision.CompareTag("BorderEnd")) 
@@ -169,7 +148,8 @@ public class Hero : MonoBehaviour
             virtualCamera.Follow = null;
             if (collision.CompareTag("BorderEnd")) 
             {
-                borderBoss.SetActive(true);
+                StartCoroutine(gameManager.StartBossFight());
+                Destroy(collision.gameObject);
             }
         }
     }
@@ -185,6 +165,5 @@ public class Hero : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(AttackPoint.position, radiusAttack);
-        Gizmos.DrawLine(feet.position, feet.position - new Vector3(0, 0.15f, 0f));
     }
 }

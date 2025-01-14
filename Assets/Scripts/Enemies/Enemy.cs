@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float lifePoints;
     [SerializeField] private float speed;
     [SerializeField] private float damage;
 
