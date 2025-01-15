@@ -23,6 +23,10 @@ public class Enemy : MonoBehaviour
         isDeath = true;
         GetComponent<Animator>().SetTrigger("death");
         GetComponent<BoxCollider2D>().enabled = false;
+        if (this.gameObject.CompareTag("Boss")) 
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().StartChangeLevel();
+        }
         yield return new WaitForSeconds(0.5f);
         Destroy(this.gameObject);
     }

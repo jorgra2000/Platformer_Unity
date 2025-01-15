@@ -11,7 +11,7 @@ public class LifeSystem : MonoBehaviour
         lifes -= damage;
         if (lifes <= 0) 
         {
-            if (this.gameObject.CompareTag("Enemy"))
+            if (this.gameObject.CompareTag("Enemy") || this.gameObject.CompareTag("Boss"))
             {
                 GetComponent<Enemy>().StartDeath();
             }
@@ -23,7 +23,7 @@ public class LifeSystem : MonoBehaviour
         }
         else 
         {
-            if (this.gameObject.CompareTag("Enemy"))
+            if (this.gameObject.CompareTag("Enemy") || this.gameObject.CompareTag("Boss"))
             {
                 GetComponent<Enemy>().GetDamaged();
             }
