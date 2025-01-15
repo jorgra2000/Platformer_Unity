@@ -25,6 +25,7 @@ public class Hero : MonoBehaviour
     private float inputH;
     private Animator anim;
     private Color32 hitColor = new Color32(255, 117, 117, 255);
+    private bool isJumping;
 
     public bool IsAlive { get => isAlive; set => isAlive = value; }
 
@@ -69,14 +70,22 @@ public class Hero : MonoBehaviour
 
     void Jump() 
     {
-        if (Input.GetKeyDown(KeyCode.X) && OntTheFloor())
+        if (Input.GetKeyDown(KeyCode.X) && IsGrounded())
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);   
             anim.SetTrigger("jump");
+            isJumping = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.X) && isJumping)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * (jumpForce - 5), ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
+            isJumping = false;
         }
     }
 
-    bool OntTheFloor()
+    bool IsGrounded()
     {
         return Physics2D.Raycast(feet.position, Vector3.down, 0.15f, floor) || 
             Physics2D.Raycast(feet.position + new Vector3(0.1f, 0f, 0f), Vector3.down, 0.15f, floor) ||

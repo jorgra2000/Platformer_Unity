@@ -2794,16 +2794,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 66, y: -7, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 81, y: -7, z: 0}
     second:
       serializedVersion: 2
@@ -3109,6 +3099,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 1
       m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 64, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3612,6 +3612,18 @@ CompositeCollider2D:
         Y: -150000000
       - X: 575625024
         Y: -150000000
+    - - X: 670000000
+        Y: -47500000
+      - X: 670000000
+        Y: -40000000
+      - X: 620000000
+        Y: -40000000
+      - X: 620000000
+        Y: -47500000
+      - X: 622499968
+        Y: -50000000
+      - X: 667500032
+        Y: -50000000
     - - X: 770000000
         Y: -47500000
       - X: 770000000
@@ -3710,18 +3722,6 @@ CompositeCollider2D:
         Y: -110000000
       - X: 900000000
         Y: -110000000
-    - - X: 690000000
-        Y: -67500000
-      - X: 690000000
-        Y: -60000000
-      - X: 640000000
-        Y: -60000000
-      - X: 640000000
-        Y: -67500000
-      - X: 642499968
-        Y: -70000000
-      - X: 687500032
-        Y: -70000000
     - - X: 1380000000
         Y: -77500000
       - X: 1380000000
@@ -3851,6 +3851,12 @@ CompositeCollider2D:
       - {x: 72, y: -4.000029}
       - {x: 72.00001, y: -4.7500076}
       - {x: 72.25001, y: -5}
+    - - {x: 66.74999, y: -5}
+      - {x: 67, y: -4.749989}
+      - {x: 66.99997, y: -4}
+      - {x: 62, y: -4.000029}
+      - {x: 62.000008, y: -4.7500076}
+      - {x: 62.25001, y: -5}
     - - {x: 57.562485, y: -15}
       - {x: 57.6875, y: -14.562496}
       - {x: 57.6875, y: -13}
@@ -3886,20 +3892,14 @@ CompositeCollider2D:
       - {x: 162, y: -5.000029}
       - {x: 162.00002, y: -5.7500076}
       - {x: 162.25002, y: -6}
-    - - {x: 99.99997, y: -12}
-      - {x: 99.99997, y: -6}
-      - {x: 93, y: -6.000029}
-      - {x: 93.00003, y: -12}
     - - {x: 89.99997, y: -11}
       - {x: 89.99997, y: -6}
       - {x: 81, y: -6.000029}
       - {x: 81.00003, y: -11}
-    - - {x: 68.74999, y: -7}
-      - {x: 69, y: -6.749989}
-      - {x: 68.99997, y: -6}
-      - {x: 64, y: -6.000029}
-      - {x: 64.00001, y: -6.750008}
-      - {x: 64.25001, y: -7}
+    - - {x: 99.99997, y: -12}
+      - {x: 99.99997, y: -6}
+      - {x: 93, y: -6.000029}
+      - {x: 93.00003, y: -12}
     - - {x: 137.74998, y: -8}
       - {x: 138, y: -7.749989}
       - {x: 137.99997, y: -7}
@@ -6107,6 +6107,7 @@ MonoBehaviour:
   bossPosition: {fileID: 0}
   healthBar: {fileID: 0}
   waypointsBoss: []
+  bossFightSong: {fileID: 0}
 --- !u!4 &2019492223
 Transform:
   m_ObjectHideFlags: 0
