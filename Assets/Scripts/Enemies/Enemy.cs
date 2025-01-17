@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     public float Speed { get => speed; set => speed = value; }
     public bool IsDeath { get => isDeath; set => isDeath = value; }
+    public float Damage { get => damage; set => damage = value; }
 
     public void StartDeath() 
     {

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Hero player;
     [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private int nextScene;
     [Header("Boss Fight")]
     [SerializeField] private GameObject bossHealthBar;
     [SerializeField] private GameObject borderBoss;
@@ -94,14 +95,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         circleTransition.GetComponent<Animator>().SetTrigger("endLevel");
         yield return new WaitForSeconds(1f);
-        int maxScene = SceneManager.sceneCount;
-        if((SceneManager.GetActiveScene().buildIndex + 1) >= maxScene) 
-        {
-            SceneManager.LoadScene(0);
-        }
-        else 
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
+        SceneManager.LoadScene(nextScene);
     }
 }

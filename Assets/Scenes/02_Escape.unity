@@ -6377,6 +6377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1538828323}
   gameOverMenu: {fileID: 307725419}
+  nextScene: 2
   bossHealthBar: {fileID: 1693049351}
   borderBoss: {fileID: 0}
   bossPrefab: {fileID: 1176696597525956884, guid: d6d4ddea2cf449b4d8230ef845d21de0, type: 3}

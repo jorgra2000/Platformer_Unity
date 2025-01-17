@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/02_Escape.unity
     guid: f27e5d1a2530d764b8278e3aea00a86b
+  - enabled: 1
+    path: Assets/Scenes/03_Town.unity
+    guid: a9f5f8f02702aba42a1bd077ede52529
   m_configObjects: {}
