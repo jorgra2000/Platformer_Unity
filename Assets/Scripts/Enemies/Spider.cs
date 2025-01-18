@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
+    [SerializeField] private float timeDeath;
 
     private bool canAttack = false;
     private Animator animator;
@@ -32,7 +33,14 @@ public class Spider : Enemy
         {
             animator.SetBool("run", true);
             canAttack = true;
+            StartCoroutine(CountdownDeath());
         }
+    }
+
+    IEnumerator CountdownDeath()
+    {
+        yield return new WaitForSeconds(timeDeath);
+        StartCoroutine(Death());
     }
 
 }

@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
@@ -25,6 +26,8 @@ public class Hero : MonoBehaviour
     private float inputH;
     private Animator anim;
     private Color32 hitColor = new Color32(255, 117, 117, 255);
+    private bool canPowerUpWolf;
+    private bool canDoubleJump;
     private bool isJumping;
 
     public bool IsAlive { get => isAlive; set => isAlive = value; }
@@ -33,6 +36,14 @@ public class Hero : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        if(SceneManager.GetActiveScene().buildIndex >= 2) 
+        {
+            canDoubleJump = true;
+        }
+        if(SceneManager.GetActiveScene().buildIndex >= 2) 
+        {
+            canPowerUpWolf = true;
+        }
     }
 
     void Update()
@@ -40,8 +51,20 @@ public class Hero : MonoBehaviour
         if (isAlive) 
         {
             Movement();
-            Jump();
+            if (canDoubleJump) 
+            {
+                DoubleJump();
+            }
+            else 
+            {
+                Jump();
+            }
             Attack();
+
+            if (canPowerUpWolf) 
+            {
+                PowerUpWolf();
+            }
         }
     }
 
@@ -76,6 +99,16 @@ public class Hero : MonoBehaviour
             anim.SetTrigger("jump");
             isJumping = true;
         }
+    }
+
+    void DoubleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && IsGrounded())
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
+            isJumping = true;
+        }
         else if (Input.GetKeyDown(KeyCode.X) && isJumping)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -83,6 +116,15 @@ public class Hero : MonoBehaviour
             anim.SetTrigger("jump");
             isJumping = false;
         }
+    }
+
+    void PowerUpWolf() 
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            anim.SetTrigger("wolf");
+        }
+
     }
 
     bool IsGrounded()
