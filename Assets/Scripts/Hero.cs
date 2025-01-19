@@ -20,6 +20,8 @@ public class Hero : MonoBehaviour
     [SerializeField] private Transform AttackPoint;
     [SerializeField] private float radiusAttack;
     [SerializeField] private LayerMask damageLayer;
+    [SerializeField] private GameObject wolfPrefab;
+    [SerializeField] private Transform powerUpPoint;
 
     private bool isAlive = true;
     private Rigidbody2D rb;
@@ -120,9 +122,10 @@ public class Hero : MonoBehaviour
 
     void PowerUpWolf() 
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded())
         {
             anim.SetTrigger("wolf");
+            Instantiate(wolfPrefab, powerUpPoint.position, Quaternion.identity);
         }
 
     }

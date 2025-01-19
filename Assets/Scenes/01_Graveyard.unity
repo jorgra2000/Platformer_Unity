@@ -3114,6 +3114,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CircleTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 8299371477040837566, guid: e1326cae2625b5a4591a2e9b230a7bca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8703322240904969576, guid: e1326cae2625b5a4591a2e9b230a7bca, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -12813,6 +12817,8 @@ MonoBehaviour:
   damageLayer:
     serializedVersion: 2
     m_Bits: 64
+  wolfPrefab: {fileID: 0}
+  powerUpPoint: {fileID: 0}
 --- !u!114 &1102112625
 MonoBehaviour:
   m_ObjectHideFlags: 0

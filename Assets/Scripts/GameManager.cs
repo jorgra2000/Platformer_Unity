@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] waypointsBoss;
     [SerializeField] private AudioClip bossFightSong;
     [SerializeField] private Image circleTransition;
+    [SerializeField] private bool isSpawned;
 
     private AudioSource audioSource;
 
@@ -72,7 +73,11 @@ public class GameManager : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(3f);
         bossHealthBar.SetActive(true);
-        Instantiate(bossPrefab, bossPosition.position, Quaternion.identity);
+        if (!isSpawned) 
+        {
+            Instantiate(bossPrefab, bossPosition.position, Quaternion.identity);
+        }
+
     }
 
     public IEnumerator StartEscapeBoss() 

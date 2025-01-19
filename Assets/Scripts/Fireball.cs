@@ -4,6 +4,8 @@ public class Fireball : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float timeDestroy;
+    [SerializeField] private Vector2 direction;
+    [SerializeField] private bool isAlly;
 
     void Start()
     {
@@ -12,16 +14,28 @@ public class Fireball : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.left * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) 
+        if (isAlly) 
         {
-            Destroy(this.gameObject);
-            LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
-            lifeSystem.GetDamaged(1);
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                Destroy(this.gameObject);
+                LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
+                lifeSystem.GetDamaged(3);
+            }
+        }
+        else 
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Destroy(this.gameObject);
+                LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
+                lifeSystem.GetDamaged(1);
+            }
         }
     }
 }
