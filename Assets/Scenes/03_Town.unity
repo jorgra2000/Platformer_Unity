@@ -8815,7 +8815,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 73758917900ead84c8b0da3cd6132de5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fe88f1bdb0265ef4a9d1fd80691d3075, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -8924,7 +8924,7 @@ MonoBehaviour:
   waypointsBoss:
   - {fileID: 0}
   - {fileID: 0}
-  bossFightSong: {fileID: 8300000, guid: a69ead4c5af6397499bf3e4457c69827, type: 3}
+  bossFightSong: {fileID: 8300000, guid: 1c7244caefe7c2c469467c62056bf304, type: 3}
   circleTransition: {fileID: 611044887}
   isSpawned: 1
 --- !u!4 &1948826862

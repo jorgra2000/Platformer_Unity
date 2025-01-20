@@ -22,6 +22,7 @@ public class Hero : MonoBehaviour
     [SerializeField] private LayerMask damageLayer;
     [SerializeField] private GameObject wolfPrefab;
     [SerializeField] private Transform powerUpPoint;
+    [SerializeField] private AudioClip attackSound;
 
     private bool isAlive = true;
     private Rigidbody2D rb;
@@ -31,6 +32,7 @@ public class Hero : MonoBehaviour
     private bool canPowerUpWolf;
     private bool canDoubleJump;
     private bool isJumping;
+    private AudioSource audioSource;
 
     public bool IsAlive { get => isAlive; set => isAlive = value; }
 
@@ -38,6 +40,7 @@ public class Hero : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         if(SceneManager.GetActiveScene().buildIndex >= 2) 
         {
             canDoubleJump = true;
@@ -143,6 +146,8 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             anim.SetTrigger("attack");
+            audioSource.clip = attackSound;
+            audioSource.Play();
         }
     }
 

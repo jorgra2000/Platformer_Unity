@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Hero player;
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private int nextScene;
+    [SerializeField] private AudioClip gameOverSound, victorySound;
     [Header("Boss Fight")]
     [SerializeField] private GameObject bossHealthBar;
     [SerializeField] private GameObject borderBoss;
@@ -39,6 +40,9 @@ public class GameManager : MonoBehaviour
         {
             if (!player.IsAlive)
             {
+                audioSource.Stop();
+                audioSource.clip = gameOverSound;
+                audioSource.Play();
                 gameOverMenu.SetActive(true);
                 RestartOrExitLevel();
             }
@@ -96,7 +100,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         bossHealthBar.SetActive(false);
-        //Sonido victoria
+        audioSource.Stop();
+        audioSource.clip = victorySound;
+        audioSource.loop = false;
+        audioSource.Play();
         yield return new WaitForSeconds(2f);
         circleTransition.GetComponent<Animator>().SetTrigger("endLevel");
         yield return new WaitForSeconds(1f);
