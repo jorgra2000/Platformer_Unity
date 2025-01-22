@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Wizard : Enemy
 {
-    [SerializeField] private Fireball fireballPrefab;
+    [SerializeField] private Projectile fireballPrefab;
     [SerializeField] private float timeBetweenAttacks;
     [SerializeField] private Transform spawnPosition;
 

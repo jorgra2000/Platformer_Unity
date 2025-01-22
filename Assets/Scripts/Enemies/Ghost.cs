@@ -5,8 +5,8 @@ public class Ghost : Enemy
 {
     [SerializeField] private Transform[] waypoints;
 
-    private Vector3 targetPosition;
-    private int positionIndex = 0;
+    protected Vector3 targetPosition;
+    protected int positionIndex = 0;
 
     public Vector3 TargetPosition { get => targetPosition; set => targetPosition = value; }
     public Transform[] Waypoints { get => waypoints; set => waypoints = value; }

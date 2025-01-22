@@ -16,7 +16,7 @@ public class Boss : Ghost
         startLifes = lifeSystem.Lifes;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         LookAtPoint();
         UpdateHealthBar();
