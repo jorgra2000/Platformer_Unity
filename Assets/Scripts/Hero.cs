@@ -16,6 +16,8 @@ public class Hero : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private Image[] hearts;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Image powerUpIcon;
+    [SerializeField] private Sprite[] wolfIconsPU;
 
     [Header("Combat")]
     [SerializeField] private Transform AttackPoint;
@@ -43,7 +45,12 @@ public class Hero : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        if(SceneManager.GetActiveScene().buildIndex >= 2) 
+        if (SceneManager.GetActiveScene().buildIndex == 3) 
+        {
+            powerUpIcon.sprite = wolfIconsPU[0];
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex >= 2) 
         {
             canDoubleJump = true;
         }
@@ -139,8 +146,10 @@ public class Hero : MonoBehaviour
     IEnumerator CooldownWolf() 
     {
         canUseWolf = false;
+        powerUpIcon.sprite = wolfIconsPU[1];
         yield return new WaitForSeconds(20);
         canUseWolf = true;
+        powerUpIcon.sprite = wolfIconsPU[0];
     }
 
     bool IsGrounded()

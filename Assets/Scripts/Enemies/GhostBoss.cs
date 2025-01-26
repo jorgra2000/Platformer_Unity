@@ -20,7 +20,7 @@ public class GhostBoss : Boss
 
     IEnumerator GoToWayPoint() 
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         while (transform.position != Waypoints[0].position && player.IsAlive)
         {

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isSpawned;
 
     private AudioSource audioSource;
+    private bool gameOver = false;
 
     void Start()
     {
@@ -42,10 +43,14 @@ public class GameManager : MonoBehaviour
         {
             if (!player.IsAlive)
             {
-                audioSource.Stop();
-                audioSource.clip = gameOverSound;
-                audioSource.Play();
-                gameOverMenu.SetActive(true);
+                if (!gameOver) 
+                {
+                    gameOver = true;
+                    audioSource.Stop();
+                    audioSource.clip = gameOverSound;
+                    audioSource.Play();
+                    gameOverMenu.SetActive(true);
+                }
                 RestartOrExitLevel();
             }
         }
