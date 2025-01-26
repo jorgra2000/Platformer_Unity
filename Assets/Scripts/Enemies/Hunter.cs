@@ -21,18 +21,21 @@ public class Hunter : Boss
     {
         animator = GetComponent<Animator>();
         targetPosition = Waypoints[positionIndex].position;
-        StartCoroutine(StartFight());
+        StartCoroutine(AnimationStartFight());
     }
 
     protected override void Update()
     {
         base.Update();
-        Debug.Log("a");
     }
 
-    IEnumerator StartFight() 
+    IEnumerator AnimationStartFight()
     {
-        yield return new WaitForSeconds(2f);
+        while (!StartFight) 
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(1f);
         animator.SetBool("start", true);
         StartCoroutine(Patrol());
     }
@@ -71,7 +74,7 @@ public class Hunter : Boss
                 ShootAnimation();
                 yield return new WaitForSeconds(0.75f);
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
             
         }
     }

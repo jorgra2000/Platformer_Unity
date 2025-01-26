@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ public class Hero : MonoBehaviour
     private bool canDoubleJump;
     private bool isJumping;
     private AudioSource audioSource;
+    private bool canUseWolf = true;
 
     public bool IsAlive { get => isAlive; set => isAlive = value; }
 
@@ -125,12 +127,20 @@ public class Hero : MonoBehaviour
 
     void PowerUpWolf() 
     {
-        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Q) && IsGrounded() && canUseWolf)
         {
             anim.SetTrigger("wolf");
-            Instantiate(wolfPrefab, powerUpPoint.position, Quaternion.identity);
+            Instantiate(wolfPrefab, powerUpPoint.position, transform.rotation);
+            StartCoroutine(CooldownWolf());
         }
 
+    }
+
+    IEnumerator CooldownWolf() 
+    {
+        canUseWolf = false;
+        yield return new WaitForSeconds(20);
+        canUseWolf = true;
     }
 
     bool IsGrounded()

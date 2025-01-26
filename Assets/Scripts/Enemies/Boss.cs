@@ -7,8 +7,10 @@ public class Boss : Ghost
 
     private LifeSystem lifeSystem;
     private float startLifes;
+    private bool startFight = false;
 
     public Image HealthBar { get => healthBar; set => healthBar = value; }
+    public bool StartFight { get => startFight; set => startFight = value; }
 
     void Awake()
     {

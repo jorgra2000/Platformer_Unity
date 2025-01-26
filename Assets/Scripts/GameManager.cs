@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private int nextScene;
     [SerializeField] private AudioClip gameOverSound, victorySound;
+    [SerializeField] private TextMeshProUGUI endLevelText;
     [Header("Boss Fight")]
     [SerializeField] private GameObject bossHealthBar;
     [SerializeField] private GameObject borderBoss;
@@ -51,7 +53,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("MainMenu");
         }
-
     }
 
     void RestartOrExitLevel()
@@ -69,26 +70,29 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartBossFight() 
     {
-
         borderBoss.SetActive(true);
         audioSource.Stop();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         audioSource.clip = bossFightSong;
         audioSource.Play();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         bossHealthBar.SetActive(true);
         if (!isSpawned) 
         {
             Instantiate(bossPrefab, bossPosition.position, Quaternion.identity);
         }
-
+        else 
+        {
+            bossPrefab.StartFight = true;
+        }
     }
 
     public IEnumerator StartEscapeBoss() 
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         bossHealthBar.SetActive(true);
         Instantiate(bossPrefab, bossPosition.position, bossPosition.rotation);
+        GameObject.Find("RunText").SetActive(false);
     }
 
     public void StartChangeLevel() 
@@ -104,7 +108,8 @@ public class GameManager : MonoBehaviour
         audioSource.clip = victorySound;
         audioSource.loop = false;
         audioSource.Play();
-        yield return new WaitForSeconds(2f);
+        endLevelText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5f);
         circleTransition.GetComponent<Animator>().SetTrigger("endLevel");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextScene);

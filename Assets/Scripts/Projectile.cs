@@ -21,20 +21,20 @@ public class Projectile : MonoBehaviour
     {
         if (isAlly) 
         {
-            if (collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
             {
-                Destroy(this.gameObject);
                 LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
                 lifeSystem.GetDamaged(3);
+                Destroy(this.gameObject);
             }
         }
         else 
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                Destroy(this.gameObject);
                 LifeSystem lifeSystem = collision.gameObject.GetComponent<LifeSystem>();
                 lifeSystem.GetDamaged(1);
+                Destroy(this.gameObject);
             }
         }
     }
